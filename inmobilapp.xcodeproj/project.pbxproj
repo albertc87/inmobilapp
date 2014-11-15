@@ -9,14 +9,15 @@
 /* Begin PBXBuildFile section */
 		400A8E671A158B8200D72558 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400A8E661A158B8200D72558 /* MapKit.framework */; };
 		400A8E691A158B8C00D72558 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400A8E681A158B8C00D72558 /* CoreLocation.framework */; };
-		400A8E6C1A158F2200D72558 /* define_location-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 400A8E6B1A158F2200D72558 /* define_location-32.png */; };
-		400A8E6E1A158F6900D72558 /* filter-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 400A8E6D1A158F6900D72558 /* filter-32.png */; };
 		403F1FB91A1514C000AF147E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F1FB81A1514C000AF147E /* AppDelegate.swift */; };
 		403F1FBB1A1514C000AF147E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F1FBA1A1514C000AF147E /* ViewController.swift */; };
 		403F1FBE1A1514C000AF147E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 403F1FBC1A1514C000AF147E /* Main.storyboard */; };
 		403F1FC01A1514C000AF147E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 403F1FBF1A1514C000AF147E /* Images.xcassets */; };
 		403F1FC31A1514C000AF147E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 403F1FC11A1514C000AF147E /* LaunchScreen.xib */; };
 		403F1FCF1A1514C100AF147E /* inmobilappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F1FCE1A1514C100AF147E /* inmobilappTests.swift */; };
+		40A2F1B01A1679D9009574D8 /* Inmueble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A2F1AF1A1679D9009574D8 /* Inmueble.swift */; };
+		40A2F1FE1A17B3F2009574D8 /* filter-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A2F1FC1A17B3F2009574D8 /* filter-32.png */; };
+		40A2F1FF1A17B3F2009574D8 /* define_location-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A2F1FD1A17B3F2009574D8 /* define_location-32.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,8 +33,6 @@
 /* Begin PBXFileReference section */
 		400A8E661A158B8200D72558 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		400A8E681A158B8C00D72558 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		400A8E6B1A158F2200D72558 /* define_location-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "define_location-32.png"; path = "../../../../Downloads/define_location-32.png"; sourceTree = "<group>"; };
-		400A8E6D1A158F6900D72558 /* filter-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "filter-32.png"; path = "../../../../Downloads/filter-32.png"; sourceTree = "<group>"; };
 		403F1FB31A1514C000AF147E /* inmobilapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inmobilapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		403F1FB71A1514C000AF147E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		403F1FB81A1514C000AF147E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +43,9 @@
 		403F1FC81A1514C000AF147E /* inmobilappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = inmobilappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		403F1FCD1A1514C000AF147E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		403F1FCE1A1514C100AF147E /* inmobilappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inmobilappTests.swift; sourceTree = "<group>"; };
+		40A2F1AF1A1679D9009574D8 /* Inmueble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inmueble.swift; sourceTree = "<group>"; };
+		40A2F1FC1A17B3F2009574D8 /* filter-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-32.png"; sourceTree = "<group>"; };
+		40A2F1FD1A17B3F2009574D8 /* define_location-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "define_location-32.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +71,8 @@
 		400A8E6A1A158F1300D72558 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				400A8E6D1A158F6900D72558 /* filter-32.png */,
-				400A8E6B1A158F2200D72558 /* define_location-32.png */,
+				40A2F1FC1A17B3F2009574D8 /* filter-32.png */,
+				40A2F1FD1A17B3F2009574D8 /* define_location-32.png */,
 			);
 			name = images;
 			path = ..;
@@ -79,6 +81,7 @@
 		403F1FAA1A1514C000AF147E = {
 			isa = PBXGroup;
 			children = (
+				40A2F1AF1A1679D9009574D8 /* Inmueble.swift */,
 				400A8E681A158B8C00D72558 /* CoreLocation.framework */,
 				400A8E661A158B8200D72558 /* MapKit.framework */,
 				403F1FB51A1514C000AF147E /* inmobilapp */,
@@ -215,10 +218,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A2F1FE1A17B3F2009574D8 /* filter-32.png in Resources */,
 				403F1FBE1A1514C000AF147E /* Main.storyboard in Resources */,
+				40A2F1FF1A17B3F2009574D8 /* define_location-32.png in Resources */,
 				403F1FC31A1514C000AF147E /* LaunchScreen.xib in Resources */,
-				400A8E6C1A158F2200D72558 /* define_location-32.png in Resources */,
-				400A8E6E1A158F6900D72558 /* filter-32.png in Resources */,
 				403F1FC01A1514C000AF147E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +242,7 @@
 			files = (
 				403F1FBB1A1514C000AF147E /* ViewController.swift in Sources */,
 				403F1FB91A1514C000AF147E /* AppDelegate.swift in Sources */,
+				40A2F1B01A1679D9009574D8 /* Inmueble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
