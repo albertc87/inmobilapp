@@ -18,6 +18,7 @@
 		40A2F1B01A1679D9009574D8 /* Inmueble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A2F1AF1A1679D9009574D8 /* Inmueble.swift */; };
 		40A2F1FE1A17B3F2009574D8 /* filter-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A2F1FC1A17B3F2009574D8 /* filter-32.png */; };
 		40A2F1FF1A17B3F2009574D8 /* define_location-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A2F1FD1A17B3F2009574D8 /* define_location-32.png */; };
+		6BA574711A17B93200CE5DC0 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA574701A17B93200CE5DC0 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		40A2F1AF1A1679D9009574D8 /* Inmueble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inmueble.swift; sourceTree = "<group>"; };
 		40A2F1FC1A17B3F2009574D8 /* filter-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-32.png"; sourceTree = "<group>"; };
 		40A2F1FD1A17B3F2009574D8 /* define_location-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "define_location-32.png"; sourceTree = "<group>"; };
+		6BA574701A17B93200CE5DC0 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		403F1FAA1A1514C000AF147E = {
 			isa = PBXGroup;
 			children = (
+				6BA574701A17B93200CE5DC0 /* File.swift */,
 				40A2F1AF1A1679D9009574D8 /* Inmueble.swift */,
 				400A8E681A158B8C00D72558 /* CoreLocation.framework */,
 				400A8E661A158B8200D72558 /* MapKit.framework */,
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				403F1FBB1A1514C000AF147E /* ViewController.swift in Sources */,
+				6BA574711A17B93200CE5DC0 /* File.swift in Sources */,
 				403F1FB91A1514C000AF147E /* AppDelegate.swift in Sources */,
 				40A2F1B01A1679D9009574D8 /* Inmueble.swift in Sources */,
 			);
