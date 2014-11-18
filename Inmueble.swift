@@ -7,6 +7,7 @@
 //
 
 import Foundation
+<<<<<<< HEAD
 class Inmueble{
     var id: Int = 0
     var description: String = ""
@@ -33,7 +34,19 @@ class Inmueble{
     }
     
     init(){
+=======
+import MapKit
+import CoreLocation
+
+class Inmueble : NSObject, MKAnnotation{
+    var id: Int!
+    //var description: String
+    var coordinate: CLLocationCoordinate2D
+    var title: String!
+>>>>>>> branch
     
+    init(coordinate: CLLocationCoordinate2D, title: String) {
+        self.coordinate = coordinate
+        self.title = title
     }
-    
 }
