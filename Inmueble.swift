@@ -16,22 +16,35 @@ class Inmueble : NSObject, MKAnnotation{
     var coordinate: CLLocationCoordinate2D
     var title: String!
     var address: String!//
-    var reference: String!//
-    var numberBathrooms : Int!//
-    var numberBedrooms : Int!//
+    var reference: String = ""//
+    var numberBathrooms : Int = 0//
+    var numberBedrooms : Int = 0//
     var price: Int!//
-    var administrationCost: Int!//
-    var neighborhood: String!
-    var haveParking: Bool!
-    var haveGasService: Bool!
-    var haveSurveillanceService : Bool! //porteria
-    var type: String!
+    var administrationCost: Int = 0//
+    var neighborhood: String!//
+    var haveParking: Bool = false//
+    var haveGasService: Bool = false//
+    var haveSurveillanceService : Bool = false //porteria
+    var type: String!//
     var level: String!// Estrato
-    var area: Int!
-    var typeKitchen : String!//Tipo cocina
+    var area: Int!//
+    var typeKitchen : String = "NA"//Tipo cocina
     
     init(coordinate: CLLocationCoordinate2D, title: String) {
         self.coordinate = coordinate
         self.title = title
+    }
+    
+    init(coordinate: CLLocationCoordinate2D, address: String, numberBathrooms: Int, numberBedrooms: Int, price: Int, neighborhood: String, type: String, level: String, area:Int){
+        self.coordinate = coordinate
+        self.title = "\(neighborhood), \(address)"
+        self.address = address
+        self.numberBathrooms = numberBathrooms
+        self.numberBedrooms = numberBedrooms
+        self.price = price
+        self.neighborhood = neighborhood
+        self.type = type
+        self.level = level
+        self.area = area
     }
 }

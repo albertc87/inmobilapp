@@ -12,11 +12,49 @@ import MapKit
 class DetailsViewController: UIViewController {
     
     var currentInmueble : Inmueble!
-    @IBOutlet var titleInmueble: UILabel!
+    @IBOutlet var priceInmueble: UILabel!
+    @IBOutlet var administrationCostInmueble: UILabel!
+    @IBOutlet var typeInmueble: UILabel!
+    @IBOutlet var neighborhoodInmueble: UILabel!
+    @IBOutlet var addressInmueble: UILabel!
+    @IBOutlet var referenceInmueble: UILabel!
+    @IBOutlet var typeKitchenInmueble: UILabel!
+    @IBOutlet var numberBedroomsInmueble: UILabel!
+    @IBOutlet var numberBathroomsInmueble: UILabel!
+    @IBOutlet var haveSurveillanceServiceInmueble: UILabel!
+    @IBOutlet var haveParkingInmueble: UILabel!
+    @IBOutlet var haveGasServiceInmueble: UILabel!
+    @IBOutlet var levelInmueble: UILabel!
+    @IBOutlet var areaInmueble: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleInmueble.text = currentInmueble.title
+        priceInmueble.text = "$\(currentInmueble.price)"
+        administrationCostInmueble.text = "$\(currentInmueble.administrationCost)"
+        typeInmueble.text = currentInmueble.type
+        neighborhoodInmueble.text = currentInmueble.neighborhood
+        addressInmueble.text = currentInmueble.address
+        referenceInmueble.text = currentInmueble.reference
+        typeKitchenInmueble.text = currentInmueble.typeKitchen
+        numberBedroomsInmueble.text = String(currentInmueble.numberBedrooms)
+        numberBathroomsInmueble.text = String(currentInmueble.numberBathrooms)
+        if currentInmueble.haveSurveillanceService {
+            haveSurveillanceServiceInmueble.text = "Si"
+        }else{
+            haveSurveillanceServiceInmueble.text = "No"
+        }
+        if currentInmueble.haveParking {
+            haveParkingInmueble.text = "Si"
+        }else{
+            haveParkingInmueble.text = "No"
+        }
+        if currentInmueble.haveGasService {
+            haveGasServiceInmueble.text = "Si"
+        }else{
+            haveGasServiceInmueble.text = "No"
+        }
+        levelInmueble.text = currentInmueble.level
+        areaInmueble.text = "\(currentInmueble.area) M2"
     }
 
     override func didReceiveMemoryWarning() {
