@@ -28,15 +28,11 @@ class Inmueble : NSObject, MKAnnotation{
     var level: String!// Estrato
     var area: Int!//
     var typeKitchen : String = "NA"//Tipo cocina
-    
-    var databasePath: NSString!
-    
 
     init(coordinate: CLLocationCoordinate2D, title: String) {
         self.coordinate = coordinate
         self.title = title
     }
-
     
     init(coordinate: CLLocationCoordinate2D, address: String, numberBathrooms: Int, numberBedrooms: Int, price: Int, neighborhood: String, type: String, level: String, area:Int){
         self.coordinate = coordinate
@@ -51,20 +47,19 @@ class Inmueble : NSObject, MKAnnotation{
         self.area = area
     }
     
-    
-    func searchPathOfDatabase(){
+    class func searchPathOfDatabase() -> NSString{
         var rutaDocuments:AnyObject = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        databasePath = rutaDocuments.stringByAppendingString("/inmobilapp.db")
+        var databasePath = rutaDocuments.stringByAppendingString("/inmobilapp.db")
         println("La ruta \(databasePath)")
-        //_databasePath = [[NSString alloc] initWithString: [rutaDocuments stringByAppendingPathComponent:@"employed.db"]];
+        return databasePath
     }
     
-    func createDatabaseInDocuments(){
-        self.searchPathOfDatabase()
+    class func createDatabaseInDocuments(){
+        let databasePath = Inmueble.searchPathOfDatabase()
         var fileManager = NSFileManager.defaultManager()
         var db: COpaquePointer = nil
         var error: UnsafeMutablePointer<Int8> = nil
-        if !fileManager.fileExistsAtPath(self.databasePath) {
+        if !fileManager.fileExistsAtPath(databasePath) {
             let dbpath = databasePath.UTF8String
             if sqlite3_open(dbpath, &db) == SQLITE_OK{
                 println("La base de datos se creo exitosamente")
@@ -86,8 +81,8 @@ class Inmueble : NSObject, MKAnnotation{
     }
     
     
-    func searchAll()->[Inmueble]{
-        self.searchPathOfDatabase()
+    class func searchAll()->[Inmueble]{
+        let databasePath = Inmueble.searchPathOfDatabase()
         var fileManager = NSFileManager.defaultManager()
         var db: COpaquePointer = nil
         var error: UnsafeMutablePointer<Int8> = nil
@@ -197,6 +192,26 @@ class Inmueble : NSObject, MKAnnotation{
     sqlite3_close(employed);
     
     }*/
+    
+    func insertInDataBase(){
+        let databasePath = Inmueble.searchPathOfDatabase()
+        var db: COpaquePointer = nil
+        var query: COpaquePointer = nil
+        let dbpath = databasePath.UTF8String
+        if sqlite3_open(dbpath, &db) == SQLITE_OK{
+            var sql = "INSERT INTO Inmueble (description, address, reference, number_bathrooms, number_bedrooms, price, latitude, longitude, administrationCost, neighborhood, haveParking, haveGasService, haveSurveillanceService, type, level, area, typeKitchen) VALUES (\"\",\"\(address)\",\"\(reference)\",\"\(numberBathrooms)\",,\"\(numberBedrooms)\",\"\(price)\",\"\(coordinate.latitude)\",\"\(coordinate.longitude)\",\"\(administrationCost)\",\"\(neighborhood)\",\"\(haveParking)\",\"\(haveGasService)\",\"\(haveSurveillanceService)\",\"\(type)\",\"\(level)\",\"\(area)\",\"\(typeKitchen)\")"
+            sqlite3_prepare_v2(db,sql,-1,&query, nil)
+            if (sqlite3_step(query) == SQLITE_DONE) {
+                NSLog("Datos agregados.")
+            }else{
+                NSLog("Error Adicionando el Inmueble")
+            }
+            sqlite3_finalize(query);
+            sqlite3_close(db);
+        }else{
+            NSLog("No se Puede acceder a la base de datos.")
+        }
+    }
 
     func findByFilter(filter : FilterInmueble) ->NSArray{
         return []

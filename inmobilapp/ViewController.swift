@@ -36,10 +36,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         super.viewDidLoad()
         initLocationManager()
         locations = self.getInmuebles()
-        //map.addAnnotations(locations.allObjects)
+        Inmueble.createDatabaseInDocuments()
+        Inmueble.searchAll()
         var punto =  Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), address: "Circular 5 # 71 - 10", numberBathrooms: 1, numberBedrooms: 1, price: 570000, neighborhood: "Laureles", type: "ApartaEstudio", level: "4", area: 30)
-        punto.createDatabaseInDocuments()
-        punto.searchAll()
+        punto.insertInDataBase()
         map.delegate = self
         map.showsUserLocation = true
         
@@ -155,6 +155,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //let point1 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), title: "Punto1")
         var point1 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), address: "Circular 5 # 71 - 10", numberBathrooms: 1, numberBedrooms: 1, price: 570000, neighborhood: "Laureles", type: "ApartaEstudio", level: "4", area: 30)
         point1.reference = "Cerca de la Notaria 13"
+        //point1.insertInDataBase()
         let point2 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5899699), title: "Punto2")
         let point3 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2556693, longitude: -75.5999699), title: "Punto3")
         return NSSet(array: Array(arrayLiteral: point1, point2, point3))
