@@ -39,14 +39,14 @@
 		403F1FB31A1514C000AF147E /* inmobilapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inmobilapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		403F1FB71A1514C000AF147E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		403F1FB81A1514C000AF147E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		403F1FBA1A1514C000AF147E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		403F1FBA1A1514C000AF147E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = inmobilapp/ViewController.swift; sourceTree = "<group>"; };
 		403F1FBD1A1514C000AF147E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		403F1FBF1A1514C000AF147E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		403F1FC21A1514C000AF147E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		403F1FC81A1514C000AF147E /* inmobilappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = inmobilappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		403F1FCD1A1514C000AF147E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		403F1FCE1A1514C100AF147E /* inmobilappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inmobilappTests.swift; sourceTree = "<group>"; };
-		40A2F1AF1A1679D9009574D8 /* Inmueble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inmueble.swift; sourceTree = "<group>"; };
+		40A2F1AF1A1679D9009574D8 /* Inmueble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Inmueble.swift; path = ../Inmueble.swift; sourceTree = "<group>"; };
 		40A2F1FC1A17B3F2009574D8 /* filter-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter-32.png"; sourceTree = "<group>"; };
 		40A2F1FD1A17B3F2009574D8 /* define_location-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "define_location-32.png"; sourceTree = "<group>"; };
 		40A2F2041A1BEB90009574D8 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -88,9 +88,6 @@
 		403F1FAA1A1514C000AF147E = {
 			isa = PBXGroup;
 			children = (
-				40A2F2041A1BEB90009574D8 /* SearchViewController.swift */,
-				6BA574741A1A91E900CE5DC0 /* DetailsViewController.swift */,
-				40A2F1AF1A1679D9009574D8 /* Inmueble.swift */,
 				400A8E681A158B8C00D72558 /* CoreLocation.framework */,
 				400A8E661A158B8200D72558 /* MapKit.framework */,
 				403F1FB51A1514C000AF147E /* inmobilapp */,
@@ -111,9 +108,10 @@
 		403F1FB51A1514C000AF147E /* inmobilapp */ = {
 			isa = PBXGroup;
 			children = (
+				40A2F2631A1C201F009574D8 /* model */,
+				40A2F2621A1C1FF5009574D8 /* controllers */,
 				400A8E6A1A158F1300D72558 /* images */,
 				403F1FB81A1514C000AF147E /* AppDelegate.swift */,
-				403F1FBA1A1514C000AF147E /* ViewController.swift */,
 				403F1FBC1A1514C000AF147E /* Main.storyboard */,
 				403F1FBF1A1514C000AF147E /* Images.xcassets */,
 				403F1FC11A1514C000AF147E /* LaunchScreen.xib */,
@@ -145,6 +143,25 @@
 				403F1FCD1A1514C000AF147E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		40A2F2621A1C1FF5009574D8 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				403F1FBA1A1514C000AF147E /* ViewController.swift */,
+				40A2F2041A1BEB90009574D8 /* SearchViewController.swift */,
+				6BA574741A1A91E900CE5DC0 /* DetailsViewController.swift */,
+			);
+			name = controllers;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		40A2F2631A1C201F009574D8 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				40A2F1AF1A1679D9009574D8 /* Inmueble.swift */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
