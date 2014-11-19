@@ -104,11 +104,35 @@ class Inmueble : NSObject, MKAnnotation{
 
                         var inmueble : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), title: "Default")
                         inmueble.id = Int(sqlite3_column_int(query,0))
-                        inmueble.address =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,3)))
-                        println(inmueble)
-                        //_empPhone = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,4) ];
-                        //_empAddress = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,5) ];
-                           inmuebles.append(inmueble)
+                        inmueble.address = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,2)))
+                        inmueble.reference = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,3)))!
+                        inmueble.numberBathrooms =  Int(sqlite3_column_int(query,4))
+                        inmueble.numberBedrooms = Int(sqlite3_column_int(query,5))
+                        inmueble.price = Int(sqlite3_column_int(query,6))
+                        inmueble.administrationCost =  Int(sqlite3_column_int(query,9))
+                        inmueble.neighborhood =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,10)))
+                        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,11)))? == "true" {
+                                inmueble.haveParking = true
+                        }else{
+                                inmueble.haveParking = false
+                        }
+                        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,12)))? == "true" {
+                            inmueble.haveGasService = true
+                        }else{
+                            inmueble.haveGasService = false
+                        }
+                        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,13)))? == "true" {
+                            inmueble.haveSurveillanceService = true
+                        }else{
+                            inmueble.haveSurveillanceService = false
+                        }
+                        inmueble.type =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,14)))
+                        inmueble.level =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,15)))
+                        inmueble.area  =  Int(sqlite3_column_int(query,16))
+                        inmueble.typeKitchen = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,17)))!
+                        inmueble.title = "\(inmueble.neighborhood) , \(inmueble.address)"
+                        NSLog("%@", inmueble)
+                        inmuebles.append(inmueble)
                     }
                 }
                 sqlite3_finalize(query);
