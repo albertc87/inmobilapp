@@ -5,7 +5,6 @@
 //  Created by Alberto Castro on 14/11/14.
 //  Copyright (c) 2014 Alberto Castro. All rights reserved.
 //
-
 import Foundation
 import MapKit
 import CoreLocation
@@ -37,6 +36,7 @@ class Inmueble : NSObject, MKAnnotation{
         self.coordinate = coordinate
         self.title = title
     }
+
     
     init(coordinate: CLLocationCoordinate2D, address: String, numberBathrooms: Int, numberBedrooms: Int, price: Int, neighborhood: String, type: String, level: String, area:Int){
         self.coordinate = coordinate
@@ -69,22 +69,6 @@ class Inmueble : NSObject, MKAnnotation{
             if sqlite3_open(dbpath, &db) == SQLITE_OK{
                 println("La base de datos se creo exitosamente")
                 var sql = "CREATE TABLE IF NOT EXISTS Inmueble (ID INTEGER PRIMARY KEY AUTOINCREMENT,description TEXT, address TEXT, reference TEXT, number_bathrooms TEXT, number_bedrooms TEXT, price TEXT, latitude TEXT, longitude TEXT, administrationCost TEXT, neighborhood TEXT, haveParking TEXT, haveGasService TEXT, haveSurveillanceService TEXT,type TEXT, level TEXT, area TEXT, typeKitchen TEXT)"
-                
-                var title: String!
-                var address: String!//
-                var reference: String = ""//
-                var numberBathrooms : Int = 0//
-                var numberBedrooms : Int = 0//
-                var price: Int!//
-                var administrationCost: Int = 0//
-                var neighborhood: String!//
-                var haveParking: Bool = false//
-                var haveGasService: Bool = false//
-                var haveSurveillanceService : Bool = false //porteria
-                var type: String!//
-                var level: String!// Estrato
-                var area: Int!//
-                var typeKitchen : String = "NA"//Tipo cocina
 
                 
                 
@@ -95,11 +79,44 @@ class Inmueble : NSObject, MKAnnotation{
                 }
                 sqlite3_close(db);
             }
-
             
         }else{
             println("El archivo existe")
         }
+    }
+    
+    
+    func searchAll()->[Inmueble]{
+        self.searchPathOfDatabase()
+        var fileManager = NSFileManager.defaultManager()
+        var db: COpaquePointer = nil
+        var error: UnsafeMutablePointer<Int8> = nil
+        var query: COpaquePointer = nil
+        var inmuebles :[Inmueble] = []
+        var inmueble : Inmueble!
+        let dbpath = databasePath.UTF8String
+            if sqlite3_open(dbpath, &db) == SQLITE_OK{
+                var sql = "SELECT * FROM Inmueble"
+                if sqlite3_prepare_v2(db,sql,-1,&query, nil) == SQLITE_OK{
+                    while(sqlite3_step(query) == SQLITE_ROW){
+                        var longitude: Double = sqlite3_column_double(query,7)
+                        var latitude: Double = sqlite3_column_double(query,8)
+
+                        var inmueble : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), title: "Default")
+                        inmueble.id = Int(sqlite3_column_int(query,0))
+                        inmueble.address =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,3)))
+                        println(inmueble)
+                        //_empPhone = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,4) ];
+                        //_empAddress = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,5) ];
+                           inmuebles.append(inmueble)
+                    }
+                }
+                sqlite3_finalize(query);
+                sqlite3_close(db);
+    
+            }
+        
+        return inmuebles
     }
     
     

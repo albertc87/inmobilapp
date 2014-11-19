@@ -39,6 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         //map.addAnnotations(locations.allObjects)
         var punto =  Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), address: "Circular 5 # 71 - 10", numberBathrooms: 1, numberBedrooms: 1, price: 570000, neighborhood: "Laureles", type: "ApartaEstudio", level: "4", area: 30)
         punto.createDatabaseInDocuments()
+        punto.searchAll()
         map.delegate = self
         map.showsUserLocation = true
         
