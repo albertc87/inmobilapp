@@ -199,7 +199,8 @@ class Inmueble : NSObject, MKAnnotation{
         var query: COpaquePointer = nil
         let dbpath = databasePath.UTF8String
         if sqlite3_open(dbpath, &db) == SQLITE_OK{
-            var sql = "INSERT INTO Inmueble (description, address, reference, number_bathrooms, number_bedrooms, price, latitude, longitude, administrationCost, neighborhood, haveParking, haveGasService, haveSurveillanceService, type, level, area, typeKitchen) VALUES (\"\",\"\(address)\",\"\(reference)\",\"\(numberBathrooms)\",,\"\(numberBedrooms)\",\"\(price)\",\"\(coordinate.latitude)\",\"\(coordinate.longitude)\",\"\(administrationCost)\",\"\(neighborhood)\",\"\(haveParking)\",\"\(haveGasService)\",\"\(haveSurveillanceService)\",\"\(type)\",\"\(level)\",\"\(area)\",\"\(typeKitchen)\")"
+            var sql = "INSERT INTO Inmueble (description, address, reference, number_bathrooms, number_bedrooms, price, latitude, longitude, administrationCost, neighborhood, haveParking, haveGasService, haveSurveillanceService, type, level, area, typeKitchen) VALUES (\"\",\"\(address)\",\"\(reference)\",\"\(numberBathrooms)\",\"\(numberBedrooms)\",\"\(price)\",\"\(coordinate.latitude)\",\"\(coordinate.longitude)\",\"\(administrationCost)\",\"\(neighborhood)\",\"\(haveParking)\",\"\(haveGasService)\",\"\(haveSurveillanceService)\",\"\(type)\",\"\(level)\",\"\(area)\",\"\(typeKitchen)\")"
+            NSLog(sql)
             sqlite3_prepare_v2(db,sql,-1,&query, nil)
             if (sqlite3_step(query) == SQLITE_DONE) {
                 NSLog("Datos agregados.")
