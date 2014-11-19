@@ -48,25 +48,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         var locationArray = locations as NSArray
         var locationObj = locationArray.lastObject as CLLocation
         coord = locationObj.coordinate
+        
+        //Muestra la ubicacion en donde se encuentra el punto
         if(self.initFirst){
-            var Region: MKCoordinateRegion = MKCoordinateRegionMake(coord, theSpan)
-            self.map.setRegion(Region, animated:true)
-            
+            var region: MKCoordinateRegion = MKCoordinateRegionMake(coord, theSpan)
+            self.map.setRegion(region, animated:true)
             self.initFirst = false
         }
+        //eliminar capa
         if(circle != nil){
             self.map.removeOverlay(circle)
         }
+        //agregar capa
         circle = MKCircle(centerCoordinate: coord, radius: radius as CLLocationDistance)
         self.map.addOverlay(circle)
+        
+        //Filtrar objetos del mapa
         if(locations.count > 0 && self.changeRadius){
             self.map.removeAnnotations(self.map.annotations)
+            
             var nearlyLocations : NSSet = self.filterLocations(self.locations, coord: self.coord)
+            //self.exists(nearlyLocations.allObjects, annotationsInMap: self.map.annotations)
             if(nearlyLocations.count > 0){
                 self.map.addAnnotations(nearlyLocations.allObjects)
             }
+            
             self.changeRadius = false
         }
+        
     }
     
     func mapView(mapView: MKMapView!, viewForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
@@ -158,7 +167,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
 
     @IBAction func updateLocation(sender: AnyObject) {
-        self.locationManager.requestAlwaysAuthorization()
+        if(coord != nil){
+            var region: MKCoordinateRegion = MKCoordinateRegionMake(coord, theSpan)
+            self.map.setRegion(region, animated:true)
+            self.initFirst = true
+            self.changeRadius = true
+        }
+        
     }
 }
 

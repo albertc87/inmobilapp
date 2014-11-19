@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="WL2-At-LO0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="WL2-At-LO0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
@@ -367,12 +367,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ra1-23-IoK">
-                                <rect key="frame" x="112" y="367" width="192" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Tiene parqueadero?: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ea-00-Fap">
                                 <rect key="frame" x="13" y="415" width="173" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -380,7 +374,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="djB-vY-BSJ">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="djB-vY-BSJ">
                                 <rect key="frame" x="255" y="410" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
@@ -391,7 +385,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Ob2-5G-GYk">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Ob2-5G-GYk">
                                 <rect key="frame" x="255" y="449" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
@@ -450,14 +444,33 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ra1-23-IoK">
+                                <rect key="frame" x="122" y="367" width="192" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Búsqueda" id="iD2-mh-rQz">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="iFv-V2-zlq"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="iFv-V2-zlq">
+                            <connections>
+                                <action selector="search:" destination="Hh1-BT-Ehw" id="5rO-kY-FBM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="haveGasServiceInmueble" destination="dWO-Bp-zAy" id="UQP-2j-hr5"/>
+                        <outlet property="haveParkingInmueble" destination="djB-vY-BSJ" id="Cvc-ze-FsH"/>
+                        <outlet property="haveSurveillanceServiceInmueble" destination="Ob2-5G-GYk" id="yWv-ub-8ud"/>
+                        <outlet property="levelInmueble" destination="0aB-gl-ccl" id="XG5-lm-qbz"/>
                         <outlet property="neighborhoodPicker" destination="MCi-og-1kU" id="a0K-zG-Mfk"/>
+                        <outlet property="numberBathroomsInmueble" destination="fyT-8l-cmb" id="2im-Jc-HMA"/>
+                        <outlet property="numberBedroomsInmueble" destination="vaX-6Q-BNu" id="ziV-dB-3Qe"/>
+                        <outlet property="priceOfInmueble" destination="qae-5M-9ww" id="cUc-Wx-K4s"/>
+                        <outlet property="priceUntilInmueble" destination="ra1-23-IoK" id="J4g-o8-x8H"/>
+                        <outlet property="typeInmueble" destination="CYx-WC-CyS" id="fVI-0I-Azd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AWP-xt-ee7" userLabel="First Responder" sceneMemberID="firstResponder"/>

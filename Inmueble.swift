@@ -31,6 +31,7 @@ class Inmueble : NSObject, MKAnnotation{
     var typeKitchen : String = "NA"//Tipo cocina
     
     var databasePath: NSString!
+    
 
     init(coordinate: CLLocationCoordinate2D, title: String) {
         self.coordinate = coordinate
@@ -156,6 +157,9 @@ class Inmueble : NSObject, MKAnnotation{
     
     }*/
 
+    func findByFilter(filter : FilterInmueble) ->NSArray{
+        return []
+    }
 
     
 }
