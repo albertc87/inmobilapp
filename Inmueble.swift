@@ -80,7 +80,6 @@ class Inmueble : NSObject, MKAnnotation{
         }
     }
     
-    
     class func searchAll()->[Inmueble]{
         let databasePath = Inmueble.searchPathOfDatabase()
         var fileManager = NSFileManager.defaultManager()

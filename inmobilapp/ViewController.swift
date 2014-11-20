@@ -16,6 +16,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         super.init(coder: aDecoder)
     }
     
+    @IBOutlet var loadIndicator: UIActivityIndicatorView!
     @IBOutlet var map: MKMapView!
     @IBOutlet var labelRadio: UILabel!
     var locationManager : CLLocationManager!
@@ -28,18 +29,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var locations : NSSet!
     var currentAnnotation : MKAnnotation!
     
+    let url: String = "http://mimetics.co/inmuebles.json"
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadIndicator.startAnimating()
         initLocationManager()
         locations = self.getInmuebles()
         Inmueble.createDatabaseInDocuments()
-        Inmueble.searchAll()
-        var punto =  Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), address: "Circular 5 # 71 - 10", numberBathrooms: 1, numberBedrooms: 1, price: 570000, neighborhood: "Laureles", type: "ApartaEstudio", level: "4", area: 30)
-        punto.insertInDataBase()
+        //Inmueble.searchAll()
         map.delegate = self
         map.showsUserLocation = true
         
