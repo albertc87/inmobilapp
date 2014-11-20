@@ -20,17 +20,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     @IBOutlet var map: MKMapView!
     @IBOutlet var labelRadio: UILabel!
     var locationManager : CLLocationManager!
-    var theSpan: MKCoordinateSpan = MKCoordinateSpanMake(0.003, 0.003)
+    var theSpan: MKCoordinateSpan = MKCoordinateSpanMake(0.006, 0.006)
     var coord: CLLocationCoordinate2D!
     var initFirst = true
     var circle : MKCircle!
-    var radius : Double = 100.0
+    var radius : Double = 300.0
     var changeRadius : Bool = true
     var locations : NSSet!
     var currentAnnotation : MKAnnotation!
     
-    let url: String = "http://mimetics.co/inmuebles.json"
-
+    let kJSONURL: NSURL = NSURL(string: "http://mimetics.co/inmuebles.json")!
+    let kQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,7 +38,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadIndicator.startAnimating()
+        self.getJson()
         initLocationManager()
         Inmueble.createDatabaseInDocuments()
         locations = self.getInmuebles()
@@ -71,9 +71,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if(self.changeRadius){
             self.map.removeAnnotations(self.map.annotations)
             //self.map.addAnnotations(self.locations.allObjects)
-            //println((self.locations.allObjects[0] as Inmueble).coordinate.longitude)
-            //println((self.locations.allObjects[0] as Inmueble).coordinate.latitude)
-            
             
             var nearlyLocations : NSSet = self.filterLocations(self.locations, coord: self.coord)
             if(nearlyLocations.count > 0){
@@ -122,6 +119,65 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
+    }
+    
+    func getJson(){
+        if(!Inmueble.existsDataBase()){
+            //loadIndicator.startAnimating()
+            dispatch_async(kQueue, { () -> Void in
+                var data: NSData = NSData(contentsOfURL: self.kJSONURL)!
+                self.loadJson(data)
+            })
+        }
+
+    }
+    
+    func loadJson(data: NSData){
+        self.loadIndicator.stopAnimating()
+        self.loadIndicator.hidden = true
+        var error : NSError?
+        
+        var arrInmuebles: NSArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSArray
+        var inmueble : Inmueble!
+        for jsonInmueble in arrInmuebles {
+            
+            inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: (jsonInmueble.objectForKey("latitude")! as NSString).doubleValue, longitude: (jsonInmueble.objectForKey("longitude")! as NSString).doubleValue), title: "")
+            inmueble.id = (jsonInmueble.objectForKey("id")! as Int)
+            inmueble.address = jsonInmueble.objectForKey("address")! as NSString
+            if(jsonInmueble.objectForKey("reference") != nil){
+                inmueble.reference = jsonInmueble.objectForKey("reference")! as NSString
+            }
+            inmueble.numberBathrooms = (jsonInmueble.objectForKey("numberBathrooms")! as Int)
+            inmueble.numberBedrooms = (jsonInmueble.objectForKey("numberBedrooms")! as Int)
+            inmueble.price = (jsonInmueble.objectForKey("price")! as Int)
+            inmueble.administrationCost = (jsonInmueble.objectForKey("administrationCost")! as Int)
+            inmueble.neighborhood = jsonInmueble.objectForKey("neighborhood")! as NSString
+            inmueble.type = jsonInmueble.objectForKey("type")! as NSString
+            inmueble.level = jsonInmueble.objectForKey("level")! as NSString
+            inmueble.area = (jsonInmueble.objectForKey("area")! as Int)
+            inmueble.title = "\(inmueble.neighborhood), \(inmueble.address)"
+            if(jsonInmueble.objectForKey("typeKitchen") != nil){
+                inmueble.typeKitchen = jsonInmueble.objectForKey("typeKitchen")! as NSString
+            }
+            if jsonInmueble.objectForKey("haveParking")! as NSString == "false"{
+                inmueble.haveParking = false
+            }else{
+                inmueble.haveParking = true
+            }
+            
+            if jsonInmueble.objectForKey("haveGasService")! as NSString == "false"{
+                inmueble.haveGasService = false
+            }else{
+                inmueble.haveGasService = true
+            }
+            
+            if jsonInmueble.objectForKey("haveSurveillanceService")! as NSString == "false"{
+                inmueble.haveSurveillanceService = false
+            }else{
+                inmueble.haveSurveillanceService = true
+            }
+            inmueble.insertInDataBase()
+        }
     }
     
     func filterLocations(locations:NSSet, coord:CLLocationCoordinate2D) -> NSSet{

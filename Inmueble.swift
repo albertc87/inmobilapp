@@ -63,7 +63,7 @@ class Inmueble : NSObject, MKAnnotation{
             let dbpath = databasePath.UTF8String
             if sqlite3_open(dbpath, &db) == SQLITE_OK{
                 println("La base de datos se creo exitosamente")
-                var sql = "CREATE TABLE IF NOT EXISTS Inmueble (ID INTEGER PRIMARY KEY AUTOINCREMENT,description TEXT, address TEXT, reference TEXT, number_bathrooms TEXT, number_bedrooms TEXT, price TEXT, latitude TEXT, longitude TEXT, administrationCost TEXT, neighborhood TEXT, haveParking TEXT, haveGasService TEXT, haveSurveillanceService TEXT,type TEXT, level TEXT, area TEXT, typeKitchen TEXT)"
+                var sql = "CREATE TABLE IF NOT EXISTS Inmueble (ID INTEGER PRIMARY KEY AUTOINCREMENT,description TEXT, address TEXT, reference TEXT, number_bathrooms TEXT, number_bedrooms TEXT, price INTEGER, latitude TEXT, longitude TEXT, administrationCost TEXT, neighborhood TEXT, haveParking TEXT, haveGasService TEXT, haveSurveillanceService TEXT,type TEXT, level TEXT, area TEXT, typeKitchen TEXT)"
                 
                 if sqlite3_exec(db, sql, nil, nil, &error) == SQLITE_OK{
                     println("Tabla creada exitosamente")
@@ -101,8 +101,8 @@ class Inmueble : NSObject, MKAnnotation{
     }
     
     class func getObjectByResult(query: COpaquePointer) -> Inmueble{
-        var longitude: Double = sqlite3_column_double(query,7)
-        var latitude: Double = sqlite3_column_double(query,8)
+        var longitude: Double = sqlite3_column_double(query,8)
+        var latitude: Double = sqlite3_column_double(query,7)
         
         var inmueble : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), title: "Default")
         inmueble.id = Int(sqlite3_column_int(query,0))
@@ -203,5 +203,9 @@ class Inmueble : NSObject, MKAnnotation{
         return Inmueble.search(sql)
     }
 
-    
+    class func existsDataBase() -> Bool{
+        let databasePath = Inmueble.searchPathOfDatabase()
+        var fileManager = NSFileManager.defaultManager()
+        return fileManager.fileExistsAtPath(databasePath)
+    }
 }

@@ -262,7 +262,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="50" maxValue="250" id="keR-2X-gbt">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="300" minValue="50" maxValue="900" id="keR-2X-gbt">
                                 <rect key="frame" x="14" y="523" width="230" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
@@ -280,7 +280,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[100 mts] " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5LA-Xz-0Pa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[300 mts] " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5LA-Xz-0Pa">
                                 <rect key="frame" x="254" y="535" width="60" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -308,7 +308,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="labelRadio" destination="5LA-Xz-0Pa" id="oGC-xJ-wHl"/>
-                        <outlet property="loadIndicator" destination="KdN-Az-lUZ" id="I7t-Z7-V6n"/>
+                        <outlet property="loadIndicator" destination="KdN-Az-lUZ" id="Cqt-vr-hG3"/>
                         <outlet property="map" destination="ZL9-fD-1tW" id="JKg-VB-Mjt"/>
                     </connections>
                 </viewController>

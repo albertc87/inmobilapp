@@ -121,6 +121,7 @@
 		403F1FB51A1514C000AF147E /* inmobilapp */ = {
 			isa = PBXGroup;
 			children = (
+				6B310D8A1A1D8C87003DC251 /* Delegate */,
 				40A2F2631A1C201F009574D8 /* model */,
 				40A2F2621A1C1FF5009574D8 /* controllers */,
 				400A8E6A1A158F1300D72558 /* images */,
@@ -129,7 +130,6 @@
 				403F1FBF1A1514C000AF147E /* Images.xcassets */,
 				403F1FC11A1514C000AF147E /* LaunchScreen.xib */,
 				403F1FB61A1514C000AF147E /* Supporting Files */,
-				402CD26C1A1D72AC00A29FA2 /* FilterSearchDelegate.swift */,
 			);
 			path = inmobilapp;
 			sourceTree = "<group>";
@@ -177,6 +177,14 @@
 				6BBC44951A1C4BF700F53D93 /* FilterInmueble.swift */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		6B310D8A1A1D8C87003DC251 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				402CD26C1A1D72AC00A29FA2 /* FilterSearchDelegate.swift */,
+			);
+			name = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
