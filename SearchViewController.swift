@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class SearchViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
+class SearchViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate{
     @IBOutlet var typeInmueble: UISegmentedControl!
     @IBOutlet weak var neighborhoodPicker: UIPickerView!
     @IBOutlet var numberBathroomsInmueble: UITextField!
@@ -19,6 +19,7 @@ class SearchViewController: UIViewController,UIPickerViewDataSource,UIPickerView
     @IBOutlet var haveGasServiceInmueble: UISwitch!
     @IBOutlet var levelInmueble: UITextField!
     var selectedNeighborhood : String!
+    var delegate: FilterSearchDelegate! = nil
     
     let neighborhoodData = ["Todos", "Laureles", "Poblado", "San Joaquin", "Robledo","Calasanz"]
     override func viewDidLoad() {
@@ -64,6 +65,8 @@ class SearchViewController: UIViewController,UIPickerViewDataSource,UIPickerView
         filter.haveSurveillanceService = haveSurveillanceServiceInmueble.on
         filter.haveGasService = haveGasServiceInmueble.on
         filter.level = levelInmueble.text
+        
+        delegate!.returnSelectedInmueble(self,inmueble: filter)
         
     }
     

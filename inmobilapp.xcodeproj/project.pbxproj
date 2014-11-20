@@ -10,6 +10,7 @@
 		400A8E671A158B8200D72558 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400A8E661A158B8200D72558 /* MapKit.framework */; };
 		400A8E691A158B8C00D72558 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400A8E681A158B8C00D72558 /* CoreLocation.framework */; };
 		402CD26B1A1D6C8400A29FA2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD26A1A1D6C8400A29FA2 /* SwiftyJSON.swift */; };
+		402CD26D1A1D72AC00A29FA2 /* FilterSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD26C1A1D72AC00A29FA2 /* FilterSearchDelegate.swift */; };
 		403F1FB91A1514C000AF147E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F1FB81A1514C000AF147E /* AppDelegate.swift */; };
 		403F1FBB1A1514C000AF147E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403F1FBA1A1514C000AF147E /* ViewController.swift */; };
 		403F1FBE1A1514C000AF147E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 403F1FBC1A1514C000AF147E /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		400A8E661A158B8200D72558 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		400A8E681A158B8C00D72558 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		402CD26A1A1D6C8400A29FA2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		402CD26C1A1D72AC00A29FA2 /* FilterSearchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSearchDelegate.swift; sourceTree = "<group>"; };
 		403F1FB31A1514C000AF147E /* inmobilapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inmobilapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		403F1FB71A1514C000AF147E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		403F1FB81A1514C000AF147E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				403F1FBF1A1514C000AF147E /* Images.xcassets */,
 				403F1FC11A1514C000AF147E /* LaunchScreen.xib */,
 				403F1FB61A1514C000AF147E /* Supporting Files */,
+				402CD26C1A1D72AC00A29FA2 /* FilterSearchDelegate.swift */,
 			);
 			path = inmobilapp;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				403F1FBB1A1514C000AF147E /* ViewController.swift in Sources */,
 				6BBC44961A1C4BF700F53D93 /* FilterInmueble.swift in Sources */,
 				403F1FB91A1514C000AF147E /* AppDelegate.swift in Sources */,
+				402CD26D1A1D72AC00A29FA2 /* FilterSearchDelegate.swift in Sources */,
 				40A2F1B01A1679D9009574D8 /* Inmueble.swift in Sources */,
 				402CD26B1A1D6C8400A29FA2 /* SwiftyJSON.swift in Sources */,
 				6BA574751A1A91E900CE5DC0 /* DetailsViewController.swift in Sources */,
