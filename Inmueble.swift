@@ -64,8 +64,6 @@ class Inmueble : NSObject, MKAnnotation{
             if sqlite3_open(dbpath, &db) == SQLITE_OK{
                 println("La base de datos se creo exitosamente")
                 var sql = "CREATE TABLE IF NOT EXISTS Inmueble (ID INTEGER PRIMARY KEY AUTOINCREMENT,description TEXT, address TEXT, reference TEXT, number_bathrooms TEXT, number_bedrooms TEXT, price TEXT, latitude TEXT, longitude TEXT, administrationCost TEXT, neighborhood TEXT, haveParking TEXT, haveGasService TEXT, haveSurveillanceService TEXT,type TEXT, level TEXT, area TEXT, typeKitchen TEXT)"
-
-                
                 
                 if sqlite3_exec(db, sql, nil, nil, &error) == SQLITE_OK{
                     println("Tabla creada exitosamente")
@@ -80,52 +78,17 @@ class Inmueble : NSObject, MKAnnotation{
         }
     }
     
-    class func searchAll()->[Inmueble]{
+    class func search(sql: String) -> NSArray{
         let databasePath = Inmueble.searchPathOfDatabase()
-        var fileManager = NSFileManager.defaultManager()
         var db: COpaquePointer = nil
-        var error: UnsafeMutablePointer<Int8> = nil
         var query: COpaquePointer = nil
         var inmuebles :[Inmueble] = []
         var inmueble : Inmueble!
         let dbpath = databasePath.UTF8String
             if sqlite3_open(dbpath, &db) == SQLITE_OK{
-                var sql = "SELECT * FROM Inmueble"
                 if sqlite3_prepare_v2(db,sql,-1,&query, nil) == SQLITE_OK{
                     while(sqlite3_step(query) == SQLITE_ROW){
-                        var longitude: Double = sqlite3_column_double(query,7)
-                        var latitude: Double = sqlite3_column_double(query,8)
-
-                        var inmueble : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), title: "Default")
-                        inmueble.id = Int(sqlite3_column_int(query,0))
-                        inmueble.address = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,2)))
-                        inmueble.reference = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,3)))!
-                        inmueble.numberBathrooms =  Int(sqlite3_column_int(query,4))
-                        inmueble.numberBedrooms = Int(sqlite3_column_int(query,5))
-                        inmueble.price = Int(sqlite3_column_int(query,6))
-                        inmueble.administrationCost =  Int(sqlite3_column_int(query,9))
-                        inmueble.neighborhood =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,10)))
-                        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,11)))? == "true" {
-                                inmueble.haveParking = true
-                        }else{
-                                inmueble.haveParking = false
-                        }
-                        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,12)))? == "true" {
-                            inmueble.haveGasService = true
-                        }else{
-                            inmueble.haveGasService = false
-                        }
-                        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,13)))? == "true" {
-                            inmueble.haveSurveillanceService = true
-                        }else{
-                            inmueble.haveSurveillanceService = false
-                        }
-                        inmueble.type =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,14)))
-                        inmueble.level =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,15)))
-                        inmueble.area  =  Int(sqlite3_column_int(query,16))
-                        inmueble.typeKitchen = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,17)))!
-                        inmueble.title = "\(inmueble.neighborhood) , \(inmueble.address)"
-                        NSLog("%@", inmueble)
+                        inmueble = Inmueble.getObjectByResult(query)
                         inmuebles.append(inmueble)
                     }
                 }
@@ -137,60 +100,43 @@ class Inmueble : NSObject, MKAnnotation{
         return inmuebles
     }
     
-    
-    /*
-    -(void)insertEmployedInDatabase{
-    [self searchPathOfDatabase];
-    sqlite3_stmt * query;
-    const char * db = [_databasePath UTF8String];
-    if(sqlite3_open(db,&employed) == SQLITE_OK){
-    NSString * insert = [NSString stringWithFormat:@"INSERT INTO Employed (EMP_NAME, EMP_CEDULA, EMP_JOB, EMP_PHONE, EMP_ADDRESS) VALUES (\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")", _empName,_empCedula,_empJob,_empPhone,_empAddress];
-    const char * insertsql = [insert UTF8String];
-    sqlite3_prepare_v2(employed, insertsql, -1, &query, NULL);
-    sqlite3_close(employed);
-    if (sqlite3_step(query) == SQLITE_DONE) {
-    _status = @"Empleado adicionado";
-    }else{
-    _status = @"Error al adicionar empleado";
+    class func getObjectByResult(query: COpaquePointer) -> Inmueble{
+        var longitude: Double = sqlite3_column_double(query,7)
+        var latitude: Double = sqlite3_column_double(query,8)
+        
+        var inmueble : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), title: "Default")
+        inmueble.id = Int(sqlite3_column_int(query,0))
+        inmueble.address = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,2)))
+        inmueble.reference = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,3)))!
+        inmueble.numberBathrooms =  Int(sqlite3_column_int(query,4))
+        inmueble.numberBedrooms = Int(sqlite3_column_int(query,5))
+        inmueble.price = Int(sqlite3_column_int(query,6))
+        inmueble.administrationCost =  Int(sqlite3_column_int(query,9))
+        inmueble.neighborhood =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,10)))
+        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,11)))? == "true" {
+            inmueble.haveParking = true
+        }else{
+            inmueble.haveParking = false
+        }
+        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,12)))? == "true" {
+            inmueble.haveGasService = true
+        }else{
+            inmueble.haveGasService = false
+        }
+        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,13)))? == "true" {
+            inmueble.haveSurveillanceService = true
+        }else{
+            inmueble.haveSurveillanceService = false
+        }
+        inmueble.type =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,14)))
+        inmueble.level =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,15)))
+        inmueble.area  =  Int(sqlite3_column_int(query,16))
+        inmueble.typeKitchen = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,17)))!
+        inmueble.title = "\(inmueble.neighborhood) , \(inmueble.address)"
+        
+        return inmueble
+
     }
-    sqlite3_finalize(query);
-    sqlite3_close(employed);
-    }else{
-    NSLog(@"No se pudo acceder a la base de datos");
-    }
-    
-    
-    
-    }
-    
-    -(void)searchEmployedInDatabase{
-    [self searchPathOfDatabase];
-    const char * db = [_databasePath UTF8String];
-    sqlite3_stmt * query;
-    
-    if(sqlite3_open(db,&employed) == SQLITE_OK){
-    //NSString * select = [NSString stringWithFormat:@" SELECT * FROM Employed WHERE EMP_CEDULA = \"%@\"", _empCedula];
-    const char * selectsql = [[NSString stringWithFormat:@" SELECT * FROM Employed WHERE EMP_CEDULA = \"%@\"", _empCedula]UTF8String];
-    if(sqlite3_prepare_v2(employed,selectsql,-1,&query, NULL) == SQLITE_OK){
-    if(sqlite3_step(query) == SQLITE_ROW){
-    _status = @"Empleado encontrado";
-    _empId = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,0) ];
-    _empName = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,1) ];
-    _empJob = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,3) ];
-    _empPhone = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,4) ];
-    _empAddress = [NSString stringWithFormat:@"%s", sqlite3_column_text(query,5) ];
-    
-    }else{
-    _status = @"Empleado no encontrado";
-    _empName = _empPhone= _empAddress = _empJob = @"XXXXXXXXXXXXXX";
-    }
-    }else{
-    _status = @"Error en el sql";
-    }
-    sqlite3_finalize(query);
-    sqlite3_close(employed);
-    
-    }*/
     
     func insertInDataBase(){
         let databasePath = Inmueble.searchPathOfDatabase()
@@ -212,9 +158,49 @@ class Inmueble : NSObject, MKAnnotation{
             NSLog("No se Puede acceder a la base de datos.")
         }
     }
+    
+    
+    class func searchAll() -> NSArray{
+        var sql = "SELECT * FROM Inmueble"
+        return Inmueble.search(sql)
+    }
+    
 
-    func findByFilter(filter : FilterInmueble) ->NSArray{
-        return []
+    class func searchByFilter(filter : FilterInmueble) ->NSArray{
+        var sql = "SELECT * FROM Inmueble Where type = \"\(filter.type)\"  "
+        
+        if(filter.neighborhood != nil && filter.neighborhood != "Todos"){
+            sql += "AND neighborhood = \"\(filter.neighborhood)\" "
+        }
+        
+        if(filter.numberBathrooms != nil){
+            sql += "AND number_bathrooms = \"\(filter.numberBathrooms)\" "
+        }
+
+        if(filter.numberBedrooms != nil){
+            sql += "AND number_bedrooms = \"\(filter.numberBedrooms)\" "
+        }
+        
+        if(filter.priceOf != nil && filter.priceUntil != nil){
+            sql += "AND price BETWEEN \(filter.priceOf) AND \(filter.priceUntil) "
+        }else if(filter.priceOf != nil){
+            sql += "AND price >= \(filter.priceOf) "
+        }else if(filter.priceUntil != nil){
+            sql += "AND price <= \(filter.priceUntil) "
+        }
+        
+        if(filter.haveParking != nil){
+            sql += "AND haveParking = \"\(filter.haveParking)\" "
+        }
+        
+        if(filter.haveGasService != nil){
+            sql += "AND haveGasService = \"\(filter.haveGasService)\" "
+        }
+        
+        if(filter.haveSurveillanceService != nil){
+            sql += "AND haveSurveillanceService = \"\(filter.haveSurveillanceService)\" "
+        }
+        return Inmueble.search(sql)
     }
 
     

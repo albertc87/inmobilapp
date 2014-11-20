@@ -40,9 +40,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         super.viewDidLoad()
         loadIndicator.startAnimating()
         initLocationManager()
-        locations = self.getInmuebles()
         Inmueble.createDatabaseInDocuments()
-        //Inmueble.searchAll()
+        locations = self.getInmuebles()
+        
         map.delegate = self
         map.showsUserLocation = true
         
@@ -68,11 +68,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         self.map.addOverlay(circle)
         
         //Filtrar objetos del mapa
-        if(locations.count > 0 && self.changeRadius){
+        if(self.locations.count > 0 && self.changeRadius){
             self.map.removeAnnotations(self.map.annotations)
+            //self.map.addAnnotations(self.locations.allObjects)
+            //println((self.locations.allObjects[0] as Inmueble).coordinate.longitude)
+            //println((self.locations.allObjects[0] as Inmueble).coordinate.latitude)
+            
             
             var nearlyLocations : NSSet = self.filterLocations(self.locations, coord: self.coord)
-            //self.exists(nearlyLocations.allObjects, annotationsInMap: self.map.annotations)
             if(nearlyLocations.count > 0){
                 self.map.addAnnotations(nearlyLocations.allObjects)
             }
@@ -126,7 +129,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             var point : Inmueble = obj as Inmueble
             var testLocation: CLLocation = CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)
             var centerLocation: CLLocation = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
-            var returnValue = centerLocation.distanceFromLocation(testLocation) <= self.radius
+            let distance = centerLocation.distanceFromLocation(testLocation)
+            var returnValue = distance <= self.radius
             return returnValue;
         }
 
@@ -153,7 +157,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
     }
     
-    func getInmuebles() -> NSSet{
+    func getInmueblesStatic() -> NSSet{
         
         //let point1 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), title: "Punto1")
         var point1 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5889699), address: "Circular 5 # 71 - 10", numberBathrooms: 1, numberBedrooms: 1, price: 570000, neighborhood: "Laureles", type: "ApartaEstudio", level: "4", area: 30)
@@ -162,6 +166,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         let point2 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2456693, longitude: -75.5899699), title: "Punto2")
         let point3 : Inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: 6.2556693, longitude: -75.5999699), title: "Punto3")
         return NSSet(array: Array(arrayLiteral: point1, point2, point3))
+    }
+    
+    func getInmuebles() -> NSSet{
+        //return NSSet(array: Inmueble.searchByFilter(filter))
+        return NSSet(array: Inmueble.searchAll())
     }
 
     @IBAction func changeRadio(sender: AnyObject) {
