@@ -30,7 +30,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var currentAnnotation : MKAnnotation!
     
     let kJSONURL: NSURL = NSURL(string: "http://mimetics.co/inmuebles.json")!
-    let kQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,9 +37,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getJson()
         initLocationManager()
         Inmueble.createDatabaseInDocuments()
+        self.getJson()
         locations = self.getInmuebles()
         
         map.delegate = self
@@ -122,12 +121,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func getJson(){
-        if(!Inmueble.existsDataBase()){
-            //loadIndicator.startAnimating()
-            dispatch_async(kQueue, { () -> Void in
-                var data: NSData = NSData(contentsOfURL: self.kJSONURL)!
-                self.loadJson(data)
-            })
+        if(Inmueble.searchAll().count == 0){
+            loadIndicator.startAnimating()
+            var data: NSData = NSData(contentsOfURL: self.kJSONURL)!
+            self.loadJson(data)
         }
 
     }
