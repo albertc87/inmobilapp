@@ -68,7 +68,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         self.map.addOverlay(circle)
         
         //Filtrar objetos del mapa
-        if(self.locations.count > 0 && self.changeRadius){
+        if(self.changeRadius){
             self.map.removeAnnotations(self.map.annotations)
             //self.map.addAnnotations(self.locations.allObjects)
             //println((self.locations.allObjects[0] as Inmueble).coordinate.longitude)
@@ -201,7 +201,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     //Delegate
     func returnSelectedInmueble(controller: SearchViewController,inmueble:FilterInmueble){
-        println(inmueble.type)
+        self.locations = NSSet(array: Inmueble.searchByFilter(inmueble))
+        self.changeRadius = true
         controller.navigationController?.popViewControllerAnimated(true)
         
     }
