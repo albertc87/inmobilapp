@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FilterSearchDelegate {
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -43,6 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locations = self.getInmuebles()
         Inmueble.createDatabaseInDocuments()
         //Inmueble.searchAll()
+        
+        
         map.delegate = self
         map.showsUserLocation = true
         
@@ -180,5 +182,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "mySegue"{
+            let vc = segue.destinationViewController as SearchViewController
+            //vc.colorString = colorLabel.text!
+            vc.delegate = self
+        }
+    }
+    
+    
+    //Delegate
+    func returnSelectedInmueble(controller: SearchViewController,inmueble:FilterInmueble){
+        println(inmueble.type)
+        controller.navigationController?.popViewControllerAnimated(true)
+        
+    }
+    
 }
 

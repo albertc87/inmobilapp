@@ -297,7 +297,7 @@
                     <navigationItem key="navigationItem" title="Home" id="Noe-b2-Qbt">
                         <barButtonItem key="leftBarButtonItem" image="filter-32.png" id="Fm4-fV-E2N">
                             <connections>
-                                <segue destination="Hh1-BT-Ehw" kind="push" id="T8K-Rg-eh4"/>
+                                <segue destination="Hh1-BT-Ehw" kind="push" identifier="mySegue" id="T8K-Rg-eh4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="define_location-32.png" id="AmT-W3-nms">
