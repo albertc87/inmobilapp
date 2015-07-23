@@ -49,7 +49,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var locationArray = locations as NSArray
-        var locationObj = locationArray.lastObject as CLLocation
+        var locationObj = locationArray.lastObject as! CLLocation
         coord = locationObj.coordinate
         
         //Muestra la ubicacion en donde se encuentra el punto
@@ -81,7 +81,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
     }
     
-    func mapView(mapView: MKMapView!, viewForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(mapView: MKMapView!, viewForOverlay overlay: MKOverlay!) -> MKOverlayView! {
+        if (overlay is MKCircle) {
+            var circle = MKCircleRenderer(overlay: overlay)
+            //circle.strokeColor = UIColor.redColor()
+            //circle.lineWidth = 0.5
+            circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+            
+            //return circle
+            return nil
+        } else {
+            return nil
+        }
+    }
+
+    /*func mapView(mapView: MKMapView!, viewForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if (overlay is MKCircle) {
             var circle = MKCircleRenderer(overlay: overlay)
             //circle.strokeColor = UIColor.redColor()
@@ -92,11 +106,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         } else {
             return nil
         }
-    }
+    }*/
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if(annotation.isKindOfClass(Inmueble)){
-            var inmueble = annotation as Inmueble;
+            var inmueble = annotation as! Inmueble;
             var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("Inmueble")
             if(annotationView == nil){
                 annotationView = self.annotationView(inmueble)
@@ -134,41 +148,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         self.loadIndicator.hidden = true
         var error : NSError?
         
-        var arrInmuebles: NSArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSArray
+        var arrInmuebles: NSArray = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as! NSArray
         var inmueble : Inmueble!
         for jsonInmueble in arrInmuebles {
             
-            inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: (jsonInmueble.objectForKey("latitude")! as NSString).doubleValue, longitude: (jsonInmueble.objectForKey("longitude")! as NSString).doubleValue), title: "")
-            inmueble.id = (jsonInmueble.objectForKey("id")! as Int)
-            inmueble.address = jsonInmueble.objectForKey("address")! as NSString
+            inmueble = Inmueble(coordinate: CLLocationCoordinate2D(latitude: (jsonInmueble.objectForKey("latitude")! as! NSString).doubleValue, longitude: (jsonInmueble.objectForKey("longitude")! as! NSString).doubleValue), title: "")
+            inmueble.id = (jsonInmueble.objectForKey("id")! as! Int)
+            inmueble.address = jsonInmueble.objectForKey("address")! as! String
             if(jsonInmueble.objectForKey("reference") != nil){
-                inmueble.reference = jsonInmueble.objectForKey("reference")! as NSString
+                inmueble.reference = jsonInmueble.objectForKey("reference")! as! String
             }
-            inmueble.numberBathrooms = (jsonInmueble.objectForKey("numberBathrooms")! as Int)
-            inmueble.numberBedrooms = (jsonInmueble.objectForKey("numberBedrooms")! as Int)
-            inmueble.price = (jsonInmueble.objectForKey("price")! as Int)
-            inmueble.administrationCost = (jsonInmueble.objectForKey("administrationCost")! as Int)
-            inmueble.neighborhood = jsonInmueble.objectForKey("neighborhood")! as NSString
-            inmueble.type = jsonInmueble.objectForKey("type")! as NSString
-            inmueble.level = jsonInmueble.objectForKey("level")! as NSString
-            inmueble.area = (jsonInmueble.objectForKey("area")! as Int)
+            inmueble.numberBathrooms = (jsonInmueble.objectForKey("numberBathrooms")! as! Int)
+            inmueble.numberBedrooms = (jsonInmueble.objectForKey("numberBedrooms")! as! Int)
+            inmueble.price = (jsonInmueble.objectForKey("price")! as! Int)
+            inmueble.administrationCost = (jsonInmueble.objectForKey("administrationCost")! as! Int)
+            inmueble.neighborhood = jsonInmueble.objectForKey("neighborhood")! as! String
+            inmueble.type = jsonInmueble.objectForKey("type")! as! String
+            inmueble.level = jsonInmueble.objectForKey("level")! as! String
+            inmueble.area = (jsonInmueble.objectForKey("area")! as! Int)
             inmueble.title = "\(inmueble.neighborhood), \(inmueble.address)"
             if(jsonInmueble.objectForKey("typeKitchen") != nil){
-                inmueble.typeKitchen = jsonInmueble.objectForKey("typeKitchen")! as NSString
+                inmueble.typeKitchen = jsonInmueble.objectForKey("typeKitchen")! as! String
             }
-            if jsonInmueble.objectForKey("haveParking")! as NSString == "false"{
+            if jsonInmueble.objectForKey("haveParking")! as! NSString == "false"{
                 inmueble.haveParking = false
             }else{
                 inmueble.haveParking = true
             }
             
-            if jsonInmueble.objectForKey("haveGasService")! as NSString == "false"{
+            if jsonInmueble.objectForKey("haveGasService")! as! NSString == "false"{
                 inmueble.haveGasService = false
             }else{
                 inmueble.haveGasService = true
             }
             
-            if jsonInmueble.objectForKey("haveSurveillanceService")! as NSString == "false"{
+            if jsonInmueble.objectForKey("haveSurveillanceService")! as! NSString == "false"{
                 inmueble.haveSurveillanceService = false
             }else{
                 inmueble.haveSurveillanceService = true
@@ -179,7 +193,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func filterLocations(locations:NSSet, coord:CLLocationCoordinate2D) -> NSSet{
         return locations.objectsPassingTest { (obj, boolPtr) in
-            var point : Inmueble = obj as Inmueble
+            var point : Inmueble = obj as! Inmueble
             var testLocation: CLLocation = CLLocation(latitude: point.coordinate.latitude, longitude: point.coordinate.longitude)
             var centerLocation: CLLocation = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
             let distance = centerLocation.distanceFromLocation(testLocation)
@@ -194,7 +208,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         annotationView.enabled = true
         annotationView.canShowCallout = true
         annotationView.image = UIImage(named: "home")
-        var buttonAction : UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
+        var buttonAction : UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
         buttonAction.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         annotationView.rightCalloutAccessoryView = buttonAction as UIView
         return annotationView
@@ -202,9 +216,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func buttonAction(sender:UIButton!){
         if(self.currentAnnotation != nil){
-            var controller: DetailsViewController! = self.storyboard?.instantiateViewControllerWithIdentifier("DetailsInmueble") as DetailsViewController
+            var controller: DetailsViewController! = self.storyboard?.instantiateViewControllerWithIdentifier("DetailsInmueble") as! DetailsViewController
             controller.title = "Detalles"
-            controller.currentInmueble = self.currentAnnotation as Inmueble
+            controller.currentInmueble = self.currentAnnotation as! Inmueble
             self.navigationController?.pushViewController(controller, animated: true)
         }
         
@@ -223,11 +237,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func getInmuebles() -> NSSet{
         //return NSSet(array: Inmueble.searchByFilter(filter))
-        return NSSet(array: Inmueble.searchAll())
+        return NSSet(array: Inmueble.searchAll() as [AnyObject])
     }
 
     @IBAction func changeRadio(sender: AnyObject) {
-        var size = (sender as UISlider).value
+        var size = (sender as! UISlider).value
         labelRadio.text = "[\(Int(size)) mts]"
         radius = Double(Int(size))
         changeRadius = true
@@ -245,7 +259,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "mySegue"{
-            let vc = segue.destinationViewController as SearchViewController
+            let vc = segue.destinationViewController as! SearchViewController
             //vc.colorString = colorLabel.text!
             vc.delegate = self
         }
@@ -254,7 +268,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     //Delegate
     func returnSelectedInmueble(controller: SearchViewController,inmueble:FilterInmueble){
-        self.locations = NSSet(array: Inmueble.searchByFilter(inmueble))
+        self.locations = NSSet(array: Inmueble.searchByFilter(inmueble) as [AnyObject])
         self.changeRadius = true
         controller.navigationController?.popViewControllerAnimated(true)
         

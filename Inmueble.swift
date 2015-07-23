@@ -59,7 +59,7 @@ class Inmueble : NSObject, MKAnnotation{
         var fileManager = NSFileManager.defaultManager()
         var db: COpaquePointer = nil
         var error: UnsafeMutablePointer<Int8> = nil
-        if !fileManager.fileExistsAtPath(databasePath) {
+        if !fileManager.fileExistsAtPath(databasePath as String) {
             let dbpath = databasePath.UTF8String
             if sqlite3_open(dbpath, &db) == SQLITE_OK{
                 println("La base de datos se creo exitosamente")
@@ -113,17 +113,17 @@ class Inmueble : NSObject, MKAnnotation{
         inmueble.price = Int(sqlite3_column_int(query,6))
         inmueble.administrationCost =  Int(sqlite3_column_int(query,9))
         inmueble.neighborhood =  String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,10)))
-        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,11)))? == "true" {
+        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,11))) == "true" {
             inmueble.haveParking = true
         }else{
             inmueble.haveParking = false
         }
-        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,12)))? == "true" {
+        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,12))) == "true" {
             inmueble.haveGasService = true
         }else{
             inmueble.haveGasService = false
         }
-        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,13)))? == "true" {
+        if String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(query,13))) == "true" {
             inmueble.haveSurveillanceService = true
         }else{
             inmueble.haveSurveillanceService = false
@@ -206,6 +206,6 @@ class Inmueble : NSObject, MKAnnotation{
     class func existsDataBase() -> Bool{
         let databasePath = Inmueble.searchPathOfDatabase()
         var fileManager = NSFileManager.defaultManager()
-        return fileManager.fileExistsAtPath(databasePath)
+        return fileManager.fileExistsAtPath(databasePath as String)
     }
 }
