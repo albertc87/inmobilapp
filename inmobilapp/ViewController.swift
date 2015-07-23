@@ -80,16 +80,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
         
     }
-    
-    func mapView(mapView: MKMapView!, viewForOverlay overlay: MKOverlay!) -> MKOverlayView! {
+
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if (overlay is MKCircle) {
             var circle = MKCircleRenderer(overlay: overlay)
             //circle.strokeColor = UIColor.redColor()
             //circle.lineWidth = 0.5
             circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
             
-            //return circle
-            return nil
+            return circle
         } else {
             return nil
         }
